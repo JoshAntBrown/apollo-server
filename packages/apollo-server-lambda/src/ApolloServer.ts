@@ -125,6 +125,8 @@ export class ApolloServer extends ApolloServerBase {
               cors.origin.includes(requestOrigin)))
         ) {
           requestCorsHeaders.set('access-control-allow-origin', requestOrigin);
+        } else if (typeof cors.origin === 'function') {
+          requestCorsHeaders.set('access-control-allow-origin', cors.origin(requestOrigin));
         }
 
         const requestAccessControlRequestHeaders = eventHeaders.get(
